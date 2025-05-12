@@ -1,3 +1,57 @@
+# SAVE1 E-commerce Demo
+
+Este é um projeto de demonstração de e-commerce para a SAVE1, otimizado para Google Merchant.
+
+## Características
+
+- Página de produto com URL amigável: `/product/[sku]`
+- Estrutura de dados JSON-LD para Google Merchant
+- Design responsivo usando Bootstrap 5
+- AngularJS para gerenciamento de estado e roteamento
+- Modo de URL HTML5 (sem #)
+
+## Configuração
+
+1. Instale as dependências:
+```
+npm install
+```
+
+2. Inicie o servidor:
+```
+npm start
+```
+
+3. Acesse o site em:
+```
+http://localhost:3000/product/TEN-X500-42-BLK
+```
+
+## Estrutura do Projeto
+
+- `/app/js/app.js` - Configuração do aplicativo Angular
+- `/app/controllers/ProductController.js` - Controlador de produto
+- `/app/views/product.html` - Template da página de produto
+- `/dist/index.html` - Estrutura HTML principal com dados estruturados
+- `server.js` - Servidor Express para suporte ao modo HTML5
+- `.htaccess` - Configuração para Apache
+
+## Para Produção
+
+Em ambiente de produção, configure o servidor (Apache/Nginx) para redirecionar todas as requisições para o arquivo index.html, permitindo que o Angular cuide do roteamento.
+
+### Apache
+O arquivo `.htaccess` já está configurado para isso.
+
+### Nginx
+Adicione ao bloco de configuração do servidor:
+
+```
+location / {
+    try_files $uri $uri/ /dist/index.html;
+}
+```
+
 # SAVE1 - Demonstração de Produto para Google Merchant
 
 Esta é uma demonstração de um site para um produto (Tênis de Corrida Premium) que atende aos requisitos necessários para ser aprovado no Google Merchant.

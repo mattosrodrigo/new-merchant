@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tênis de Corrida Premium - Produto Aprovado Google Merchant</title>
     <meta name="description" content="Tênis de corrida de alta performance com tecnologia de amortecimento avançada. Confortável, resistente e leve.">
+    <base href="/">
     
     <!-- Structured data for Google Merchant -->
     <script type="application/ld+json">
@@ -26,7 +27,7 @@
       },
       "offers": {
         "@type": "Offer",
-        "url": "https://example.com/tenis-corrida-premium",
+        "url": "https://behind.save1.com.br/product/TEN-X500-42-BLK",
         "priceCurrency": "BRL",
         "price": "599.90",
         "priceValidUntil": "2024-12-31",
@@ -79,7 +80,7 @@
     <link rel="stylesheet" href="app/css/styles.css">
 </head>
 <body>
-    <div class="container" ng-controller="ProductController">
+    <div class="container">
         <!-- Header -->
         <header class="py-4 mb-4 border-bottom">
             <div class="row align-items-center">
@@ -90,292 +91,18 @@
                 </div>
                 <div class="col-md-8">
                     <ul class="nav justify-content-end">
-                        <li class="nav-item"><a href="#" class="nav-link">Início</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Produtos</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Sobre</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Contato</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Carrinho (0)</a></li>
+                        <li class="nav-item"><a href="/" class="nav-link">Início</a></li>
+                        <li class="nav-item"><a href="/products" class="nav-link">Produtos</a></li>
+                        <li class="nav-item"><a href="/about" class="nav-link">Sobre</a></li>
+                        <li class="nav-item"><a href="/contact" class="nav-link">Contato</a></li>
+                        <li class="nav-item"><a href="/cart" class="nav-link">Carrinho (0)</a></li>
                     </ul>
                 </div>
             </div>
         </header>
 
-        <!-- Product Detail -->
-        <div class="row mb-5">
-            <!-- Product Images -->
-            <div class="col-md-6 mb-4">
-                <div class="product-image-container">
-                    <img ng-src="{{selectedImage || product.images[0]}}" alt="{{product.name}}" class="img-fluid main-product-image">
-                    <div class="d-flex mt-2">
-                        <div ng-repeat="image in product.images" class="me-2">
-                            <img ng-src="{{image}}" alt="{{product.name}}" class="img-thumbnail thumbnail-image" 
-                                ng-click="setSelectedImage(image)" style="width: 80px; cursor: pointer;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Product Info -->
-            <div class="col-md-6">
-                <h2 class="product-title">{{product.name}}</h2>
-                <div class="product-rating mb-2">
-                    <span class="text-warning" ng-repeat="star in getStars(product.rating) track by $index">★</span>
-                    <span class="ms-2 text-muted">({{product.reviewCount}} avaliações)</span>
-                </div>
-                
-                <div class="product-id mb-3 text-muted">
-                    <div><strong>SKU:</strong> {{product.sku}}</div>
-                    <div><strong>MPN:</strong> {{product.mpn}}</div>
-                    <div><strong>Marca:</strong> {{product.brand}}</div>
-                    <div><strong>Condição:</strong> Novo</div>
-                </div>
-                
-                <div class="product-price mb-3">
-                    <span class="fs-4 fw-bold text-primary">R$ {{product.price}}</span>
-                    <span class="text-success ms-2">Em estoque</span>
-                </div>
-                
-                <div class="product-description mb-4">
-                    <p>{{product.description}}</p>
-                </div>
-                
-                <div class="product-variants mb-3">
-                    <label class="form-label">Tamanho:</label>
-                    <div class="d-flex">
-                        <div ng-repeat="size in product.sizes" class="me-2">
-                            <button class="btn" 
-                                ng-class="{'btn-primary': selectedSize === size, 'btn-outline-primary': selectedSize !== size}"
-                                ng-click="setSelectedSize(size)">
-                                {{size}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-variants mb-4">
-                    <label class="form-label">Cor:</label>
-                    <div class="d-flex">
-                        <div ng-repeat="color in product.colors" class="me-2">
-                            <button class="btn" 
-                                ng-class="{'btn-primary': selectedColor === color, 'btn-outline-primary': selectedColor !== color}"
-                                ng-click="setSelectedColor(color)">
-                                {{color}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-actions">
-                    <div class="d-flex mb-3">
-                        <div class="input-group me-3" style="width: 120px;">
-                            <button class="btn btn-outline-secondary" type="button" ng-click="decreaseQuantity()">-</button>
-                            <input type="text" class="form-control text-center" ng-model="quantity">
-                            <button class="btn btn-outline-secondary" type="button" ng-click="increaseQuantity()">+</button>
-                        </div>
-                        <button class="btn btn-primary flex-grow-1" ng-click="addToCart()">Adicionar ao Carrinho</button>
-                    </div>
-                    <button class="btn btn-success w-100 mb-3">Comprar Agora</button>
-                </div>
-                
-                <div class="shipping-info p-3 bg-light rounded mb-3">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="bi bi-truck me-2"></i>
-                        <span><strong>Frete Grátis</strong> para todo o Brasil</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-box-seam me-2"></i>
-                        <span>Entrega em 1-5 dias úteis</span>
-                    </div>
-                </div>
-                
-                <div class="payment-methods">
-                    <div><small class="text-muted">Formas de pagamento aceitas:</small></div>
-                    <div class="d-flex mt-1">
-                        <span class="me-2 payment-icon">Visa</span>
-                        <span class="me-2 payment-icon">Mastercard</span>
-                        <span class="me-2 payment-icon">PIX</span>
-                        <span class="payment-icon">Boleto</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Details Tabs -->
-        <div class="product-details mb-5">
-            <ul class="nav nav-tabs mb-3" id="productTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">Descrição Detalhada</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button">Especificações</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">Avaliações</button>
-                </li>
-            </ul>
-            
-            <div class="tab-content p-4 bg-light rounded" id="productTabContent">
-                <div class="tab-pane fade show active" id="description" role="tabpanel">
-                    <h4>Tênis de Corrida Premium SAVE1 X500</h4>
-                    <p>O Tênis de Corrida Premium SAVE1 X500 foi desenvolvido para atletas que buscam alto desempenho e máximo conforto em suas corridas.</p>
-                    <p>Nossa exclusiva tecnologia de amortecimento adaptativo absorve o impacto e devolve energia a cada passada, reduzindo o cansaço em longas distâncias e prevenindo lesões.</p>
-                    <p>O cabedal em material super respirável mantém seus pés secos e confortáveis mesmo nos treinos mais intensos, enquanto o design anatômico proporciona estabilidade sem comprometer a flexibilidade.</p>
-                    <p>O solado de borracha de alta durabilidade oferece excelente tração em diferentes superfícies, seja em pistas de corrida, asfalto ou em trilhas leves.</p>
-                    <p>Ideal para corredores de todos os níveis, dos iniciantes aos maratonistas experientes.</p>
-                </div>
-                
-                <div class="tab-pane fade" id="specs" role="tabpanel">
-                    <h4>Especificações do Produto</h4>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Material Superior</th>
-                                <td>Malha respirável com reforços em TPU</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Material do Solado</th>
-                                <td>Borracha de alta durabilidade com tecnologia antiderrapante</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Entressola</th>
-                                <td>Espuma EVA com sistema de amortecimento avançado</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Sistema de Cadarço</th>
-                                <td>Ajuste personalizado com sistema de trava rápida</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Peso</th>
-                                <td>280g (tamanho 42)</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Drop</th>
-                                <td>10mm</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Palmilha</th>
-                                <td>Removível, com tratamento antibacteriano</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Indicado para</th>
-                                <td>Corridas de longa distância e treinos diários</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Garantia</th>
-                                <td>6 meses contra defeitos de fabricação</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">País de Origem</th>
-                                <td>Brasil</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="tab-pane fade" id="reviews" role="tabpanel">
-                    <h4>Avaliações dos Clientes</h4>
-                    <div class="d-flex mb-4">
-                        <div class="me-4 text-center">
-                            <div class="display-4 fw-bold text-primary">4.8</div>
-                            <div class="text-warning">★★★★★</div>
-                            <div class="text-muted">157 avaliações</div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <div class="row align-items-center mb-2">
-                                <div class="col-2">5 ★</div>
-                                <div class="col-8"><div class="progress"><div class="progress-bar bg-warning" style="width: 85%"></div></div></div>
-                                <div class="col-2">85%</div>
-                            </div>
-                            <div class="row align-items-center mb-2">
-                                <div class="col-2">4 ★</div>
-                                <div class="col-8"><div class="progress"><div class="progress-bar bg-warning" style="width: 10%"></div></div></div>
-                                <div class="col-2">10%</div>
-                            </div>
-                            <div class="row align-items-center mb-2">
-                                <div class="col-2">3 ★</div>
-                                <div class="col-8"><div class="progress"><div class="progress-bar bg-warning" style="width: 5%"></div></div></div>
-                                <div class="col-2">5%</div>
-                            </div>
-                            <div class="row align-items-center mb-2">
-                                <div class="col-2">2 ★</div>
-                                <div class="col-8"><div class="progress"><div class="progress-bar bg-warning" style="width: 0%"></div></div></div>
-                                <div class="col-2">0%</div>
-                            </div>
-                            <div class="row align-items-center">
-                                <div class="col-2">1 ★</div>
-                                <div class="col-8"><div class="progress"><div class="progress-bar bg-warning" style="width: 0%"></div></div></div>
-                                <div class="col-2">0%</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Sample Reviews -->
-                    <div class="review-item p-3 mb-3 border-bottom">
-                        <div class="d-flex justify-content-between mb-2">
-                            <div>
-                                <span class="fw-bold">Carlos S.</span>
-                                <span class="text-warning ms-2">★★★★★</span>
-                            </div>
-                            <small class="text-muted">12/06/2023</small>
-                        </div>
-                        <p class="mb-0">Excelente tênis! Super confortável desde o primeiro uso, sem necessidade de "quebrar". Estou usando para corridas de 10km e o amortecimento é perfeito, sem dores nos joelhos como tinha com outros modelos.</p>
-                    </div>
-                    
-                    <div class="review-item p-3 mb-3 border-bottom">
-                        <div class="d-flex justify-content-between mb-2">
-                            <div>
-                                <span class="fw-bold">Mariana L.</span>
-                                <span class="text-warning ms-2">★★★★★</span>
-                            </div>
-                            <small class="text-muted">28/05/2023</small>
-                        </div>
-                        <p class="mb-0">Comprei para preparação da minha primeira maratona e estou muito satisfeita. Leve, respirável e o sistema de amortecimento realmente funciona. Recomendo fortemente para corredores de longa distância.</p>
-                    </div>
-                    
-                    <div class="review-item p-3 mb-3 border-bottom">
-                        <div class="d-flex justify-content-between mb-2">
-                            <div>
-                                <span class="fw-bold">Ricardo M.</span>
-                                <span class="text-warning ms-2">★★★★☆</span>
-                            </div>
-                            <small class="text-muted">15/05/2023</small>
-                        </div>
-                        <p class="mb-0">Tênis muito bom, apenas acho que poderia ter mais opções de cores. O conforto é incrível e a durabilidade parece ser excelente, estou usando há 2 meses quase diariamente.</p>
-                    </div>
-                    
-                    <div class="review-item p-3">
-                        <div class="d-flex justify-content-between mb-2">
-                            <div>
-                                <span class="fw-bold">Fernanda R.</span>
-                                <span class="text-warning ms-2">★★★★★</span>
-                            </div>
-                            <small class="text-muted">02/05/2023</small>
-                        </div>
-                        <p class="mb-0">Melhor tênis de corrida que já tive! Vale cada centavo. A entressola é simplesmente fantástica, parece que estou correndo nas nuvens. Já recomendei para todo o meu grupo de corrida.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Related Products -->
-        <div class="related-products mb-5">
-            <h3 class="mb-4">Produtos Relacionados</h3>
-            <div class="row">
-                <div class="col-md-3 mb-4" ng-repeat="related in relatedProducts">
-                    <div class="card h-100">
-                        <img ng-src="{{related.image}}" class="card-img-top" alt="{{related.name}}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{related.name}}</h5>
-                            <div class="text-warning mb-2">
-                                <span ng-repeat="star in getStars(related.rating) track by $index">★</span>
-                            </div>
-                            <p class="card-text fw-bold text-primary">R$ {{related.price}}</p>
-                            <a href="#" class="btn btn-outline-primary w-100">Ver Produto</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Main content - Angular view will be loaded here -->
+        <div ng-view></div>
     </div>
 
     <!-- Footer -->
@@ -389,10 +116,10 @@
                 <div class="col-md-3 mb-3">
                     <h5>Links Rápidos</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Início</a></li>
-                        <li><a href="#" class="text-white">Produtos</a></li>
-                        <li><a href="#" class="text-white">Sobre Nós</a></li>
-                        <li><a href="#" class="text-white">Contato</a></li>
+                        <li><a href="/" class="text-white">Início</a></li>
+                        <li><a href="/products" class="text-white">Produtos</a></li>
+                        <li><a href="/about" class="text-white">Sobre Nós</a></li>
+                        <li><a href="/contact" class="text-white">Contato</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-3">

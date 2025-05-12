@@ -1,28 +1,42 @@
 'use strict';
 
-merchantApp.controller('ProductController', ['$scope', function($scope) {
-    // Main product data
-    $scope.product = {
-        name: 'Tênis de Corrida Premium SAVE1 X500',
-        sku: 'TEN-X500-42-BLK',
-        mpn: 'X500-42-BLK',
-        gtin: '7898542516748',
-        brand: 'SAVE1',
-        rating: 4.8,
-        reviewCount: 157,
-        price: '599,90',
-        description: 'Tênis de corrida profissional com tecnologia de amortecimento avançada, ideal para longas distâncias e treinos intensos. Material respirável, solado resistente e design ergonômico.',
-        availability: 'InStock',
-        condition: 'new',
-        images: [
-            'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000',
-            'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000',
-            'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000',
-            'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000'
-        ],
-        sizes: ['38', '39', '40', '41', '42', '43', '44'],
-        colors: ['Azul', 'Preto', 'Cinza']
+merchantApp.controller('ProductController', ['$scope', '$routeParams', '$location', function($scope, $routeParams, $location) {
+    // Product database (simplified for demo)
+    var productDB = {
+        'TEN-X500-42-BLK': {
+            name: 'Tênis de Corrida Premium SAVE1 X500',
+            sku: 'TEN-X500-42-BLK',
+            mpn: 'X500-42-BLK',
+            gtin: '7898542516748',
+            brand: 'SAVE1',
+            rating: 4.8,
+            reviewCount: 157,
+            price: '599,90',
+            description: 'Tênis de corrida profissional com tecnologia de amortecimento avançada, ideal para longas distâncias e treinos intensos. Material respirável, solado resistente e design ergonômico.',
+            availability: 'InStock',
+            condition: 'new',
+            images: [
+                'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000',
+                'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000',
+                'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000',
+                'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000'
+            ],
+            sizes: ['38', '39', '40', '41', '42', '43', '44'],
+            colors: ['Azul', 'Preto', 'Cinza']
+        }
     };
+    
+    // Get SKU from route parameters
+    var sku = $routeParams.sku;
+    
+    // Check if product exists
+    if (productDB[sku]) {
+        $scope.product = productDB[sku];
+    } else {
+        // Redirect to default product if SKU not found
+        $location.path('/product/TEN-X500-42-BLK');
+        return;
+    }
     
     // Related products
     $scope.relatedProducts = [
@@ -30,24 +44,28 @@ merchantApp.controller('ProductController', ['$scope', function($scope) {
             name: 'Tênis de Corrida SAVE1 X300',
             price: '499,90',
             rating: 4.5,
+            sku: 'TEN-X300-42-BLU',
             image: 'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000'
         },
         {
             name: 'Tênis SAVE1 Trail Runner',
             price: '549,90',
             rating: 4.6,
+            sku: 'TEN-TR200-42-GRN',
             image: 'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000'
         },
         {
             name: 'Meia de Corrida Pro Performance',
             price: '49,90',
             rating: 4.9,
+            sku: 'MEIA-PP100-L-BLK',
             image: 'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000'
         },
         {
             name: 'Camiseta Dry-fit SAVE1',
             price: '129,90',
             rating: 4.7,
+            sku: 'CAM-DF100-M-BLU',
             image: 'https://images-ext-1.discordapp.net/external/JAE-H2VNHTRyV5_42OsW9vVSEJGsoh4iO_-WzeIfelM/https/cdn.ace1.com.br/product/shoes/sneakers/JQ5143/base/JQ5143.png?format=webp&quality=lossless&width=2000&height=2000'
         }
     ];
