@@ -1,0 +1,9 @@
+{
+  "customDomains": [
+    {
+      "domainName": "behind.save1.com.br",
+      "enableAutoSubdomain": false,
+      "waitForVerification": true
+    }
+  ]
+} 

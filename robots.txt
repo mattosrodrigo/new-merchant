@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+
+# Allow Google Merchant Bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Sitemap
+Sitemap: https://example.com/sitemap.xml 
